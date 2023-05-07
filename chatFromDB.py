@@ -4,6 +4,7 @@ from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from rich.console import Console
+import tiktoken
 console = Console()
 directory = "text"
 persist_directory = 'db'
@@ -43,8 +44,18 @@ def queryFromPersistantDB(query):
 
     chain = load_qa_with_sources_chain(OpenAI(temperature=0), chain_type="map_reduce",
                                        return_intermediate_steps=True, question_prompt=QUESTION_PROMPT, combine_prompt=COMBINE_PROMPT)
+
     # console.log(
     # chain({"input_documents": docs, "question": query}, return_only_outputs=True))
+    # Choose the encoding for the OpenAI model you're working with
+    encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+
+    # Encode the text
+    tokens = encoding.encode("\n".join([i.page_content for i in docs]))
+    while len(tokens) > 3500:
+        docs = docs[: -1]
+        tokens = encoding.encode("\n".join([i.page_content for i in docs]))
+
     response = chain({"input_documents": docs, "question": query},
                      return_only_outputs=True)
     console.log(response["output_text"])
