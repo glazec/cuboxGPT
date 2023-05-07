@@ -1,24 +1,17 @@
 from langchain import PromptTemplate
-from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
-from langchain.indexes import VectorstoreIndexCreator
-from langchain.document_loaders import TextLoader
-from langchain.document_loaders import DirectoryLoader
-from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 import sys
-from rich import print, pretty, inspect
 from rich.console import Console
-from langchain.vectorstores.elastic_vector_search import ElasticVectorSearch
 console = Console()
 directory = "text"
 persist_directory = 'db'
 
 
 def queryFromPersistantDB(query):
-    if query == None:
+    if query is None:
         # query = "I would like a tool to speed up my coding with the help of AI and GPT? In this way I can chat with my code. Give the name of the tool and the url"
         query = "I am looking for a tool to draw grpah from data. Like bar chart, pie chart."
     docsearch = Chroma(persist_directory=persist_directory,

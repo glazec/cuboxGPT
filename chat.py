@@ -1,20 +1,18 @@
+# 
 # build a question answer over docs with langchain. Load text from cursor.txt and supabase.txt. Use openai to tokennize. Use gpt3 to generate answer.
 # see https://python.langchain.com/en/latest/modules/chains/index_examples/qa_with_sources.html to add metadata
 # @todo use webloader
 from langchain import PromptTemplate
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
-from langchain.indexes import VectorstoreIndexCreator
 from langchain.document_loaders import TextLoader
 from langchain.document_loaders import DirectoryLoader
-from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 import os
-from rich import print, pretty, inspect
+from rich import pretty
 from rich.console import Console
-from langchain.vectorstores.elastic_vector_search import ElasticVectorSearch
 pretty.install()
 console = Console()
 # query = "I would like to have four AI tools to help me speed up my coding and programming workflow. I can use the tool to chat with my code and it can help me write codes with AI and GPT. List some Tools and their intros in bullet points. Think about why they fits my needs. "
