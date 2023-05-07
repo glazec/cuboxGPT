@@ -30,6 +30,8 @@ cuboxgpt init-database
 cuboxgpt search <query>
 ```
 
+![search](./media/sample_query.png)
+
 # Development
 
 ```bash
