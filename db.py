@@ -3,14 +3,12 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.document_loaders import TextLoader
 import os
-import click
 from rich.console import Console
 console = Console()
 # @todo: add_documents,delte_collection
 
 
-@click.command()
-def setDatabase():
+def initDatabase():
     docs_array = []
     directory = "text"
     persist_directory = 'db'
@@ -42,4 +40,4 @@ def setDatabase():
 
 
 if __name__ == '__main__':
-    setDatabase()
+    initDatabase()

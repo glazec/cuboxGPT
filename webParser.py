@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from rich import print, pretty
 from rich.progress import track
 from rich.console import Console
-import click
 pretty.install()
 console = Console()
 
@@ -82,11 +81,10 @@ def cuboxExportLoader(filePath):
     return links
 
 
-@click.command()
-@click.option("--filePath", default="cubox_export.html", help="Cubox Export File Path")
 def loadWebContentFromCuboxExport(filepath):
     links = cuboxExportLoader(filepath)
     webLoader(links)
+
 
 if __name__ == '__main__':
     loadWebContentFromCuboxExport()

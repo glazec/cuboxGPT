@@ -4,14 +4,11 @@ from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from rich.console import Console
-import click
 console = Console()
 directory = "text"
 persist_directory = 'db'
 
 
-@click.command()
-@click.option('--query', default=None, help='query to search')
 def queryFromPersistantDB(query):
     if query is None:
         # query = "I would like a tool to speed up my coding with the help of AI and GPT? In this way I can chat with my code. Give the name of the tool and the url"
