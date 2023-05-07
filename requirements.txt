@@ -1,3 +1,6 @@
-rich
-langchain
-openai
+'Click',
+'requests',
+'bs4',
+'rich',
+'langchain',
+'openai'

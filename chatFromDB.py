@@ -3,13 +3,15 @@ from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
-import sys
 from rich.console import Console
+import click
 console = Console()
 directory = "text"
 persist_directory = 'db'
 
 
+@click.command()
+@click.option('--query', default=None, help='query to search')
 def queryFromPersistantDB(query):
     if query is None:
         # query = "I would like a tool to speed up my coding with the help of AI and GPT? In this way I can chat with my code. Give the name of the tool and the url"
@@ -27,9 +29,9 @@ def queryFromPersistantDB(query):
             "context", "question"]
     )
 
-    combine_prompt_template = """Given the following extracted parts of a long list of tools and their intros and a question, create a final answer with references ("SOURCES").
+    combine_prompt_template = """Given the following extracted parts of a long list of tools and their intros and a question, create a final answer with references ("SOURCES" and "URL").
     If you don't know the answer, just say that you don't know. Don't try to make up an answer.
-    ALWAYS return a "SOURCES" part in your answer.
+    ALWAYS return "SOURCES" and "URL" part in your answer.
     Respond in English.
 
     QUESTION: {question}
@@ -47,11 +49,11 @@ def queryFromPersistantDB(query):
     # console.log(
     # chain({"input_documents": docs, "question": query}, return_only_outputs=True))
     response = chain({"input_documents": docs, "question": query},
-                     return_only_outputs=False)
-    # console.log(response["output_text"])
-    console.log(response)
+                     return_only_outputs=True)
+    console.log(response["output_text"])
+    # console.log(response)
 
 
 if __name__ == "__main__":
     # takes input from CLI arguments
-    queryFromPersistantDB(sys.argv[1])
+    queryFromPersistantDB()
