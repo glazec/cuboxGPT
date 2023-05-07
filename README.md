@@ -6,7 +6,12 @@ Use GPT to help users quickly search/chat with your large cubox dataset.
 
 Install the package.
 
+```bash
+pip install cuboxGPT
+```
+
 Export the cubox dataset as html file.
+![export](./media/cubox_export.png)
 
 Call the command line tool
 
@@ -26,11 +31,13 @@ cuboxgpt search <query>
 ```
 
 # Development
+
 ```bash
 venv ./venv
 source ./venv/bin/activate
 pip install --editable .
 ```
+
 `cuboxGPT.py` has all comand line tools implementation.
 
 `chatFromDB.py` reads from the database and implement the query function.
@@ -42,7 +49,9 @@ pip install --editable .
 `pyproject.toml` contains ruff lint configuration.
 
 # Roadmap
+
 Goal: Enhance the search experience and easily keep datasets up to date.
+
 - [ ] Better CRUD on database. Users can update/delete single ducoments in the database.
 - [ ] Seach document with custom filter on metadata.
 - [ ] Better parsing rule for certain websites like Twitter, Youtube with Chinese characters, Weixin
